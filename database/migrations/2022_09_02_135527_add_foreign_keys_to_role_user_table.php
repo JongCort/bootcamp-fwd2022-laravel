@@ -28,7 +28,7 @@ return new class extends Migration
     {
         Schema::table('role_user', function (Blueprint $table) {
              $table->dropForeign('fk_role_user_to_role');
-              $table->dropForeign('fk_role_user_to_users');
+             $table->dropForeign('fk_role_user_to_users');
         });
     }
 };
