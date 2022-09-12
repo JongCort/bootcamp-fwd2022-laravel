@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Database\Eloquent\softDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
@@ -19,13 +19,13 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
-    use softDeletes;
+    use SoftDeletes;
 
     protected $dates = [
         'updated_at',
         'created_at',
         'deleted_at',
-        'email_verified_at'
+        'email_verified_at',
     ];
 
     /**
@@ -69,6 +69,12 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    // many to many --- //
+    public function role()
+    {
+        return $this->belongsToMany('App\Models\ManagementAccess\Role');
+    }
+
     // one to many
     public function appointment()
     {
@@ -76,14 +82,12 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Operational\Appointment', 'user_id');
     }
 
-    // one to many
     public function detail_user()
     {
         // 2 parameter (path model, field foreign key)
         return $this->hasOne('App\Models\ManagementAccess\DetailUser', 'user_id');
     }
 
-     // one to many
     public function role_user()
     {
         // 2 parameter (path model, field foreign key)
