@@ -4,34 +4,35 @@ namespace App\Models\MasterData;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\softDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Consultation extends Model
 {
-    //use Hasfactory
-    use softDeletes;
+    // use HasFactory;
+    use SoftDeletes;
 
-    //declane table
+    // declare table
     public $table = 'consultation';
 
-    // this field must type user date yyyy-mm-dd hh:mm:ss
+    // this field must type date yyyy-mm-dd hh:mm:ss
     protected $dates = [
         'created_at',
-        'update_at',
+        'updated_at',
         'deleted_at',
     ];
 
-     protected $fillable = [
+    // declare fillable
+    protected $fillable = [
         'name',
         'created_at',
-        'update_at',
+        'updated_at',
         'deleted_at',
     ];
 
     // one to many
     public function appointment()
     {
-        // 2 parameter (path model, field foreign key)
+        // 3 parameter (path model, field foreign key)
         return $this->hasMany('App\Models\Operational\Appointment', 'consultation_id');
     }
 }
